@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import ToDoStar from "./ToDoStar";
+import ToDoStar from "./writing/ToDoStar";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import DiaryList from "./diaryList/DiaryList";

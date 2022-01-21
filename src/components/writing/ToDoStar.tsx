@@ -8,7 +8,7 @@ import Rating from "@mui/material/Rating";
 const ToDoStar = () => {
   return (
     <div>
-      <Typography component="legend">Custom icon and color</Typography>
+      <Typography component="legend">오늘 하루는 어떠셨나요?</Typography>
       <StyledRating
         name="customized-color"
         defaultValue={2}
