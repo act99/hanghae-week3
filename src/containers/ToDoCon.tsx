@@ -4,6 +4,7 @@ import ToDoList from "../components/ToDoList";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import ToDoWriting from "../components/writing/ToDoWriting";
+import { ToDoSchedule } from "../components/calendar/ToDoSchedule";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,20 +21,27 @@ const style = {
 const ToDoCon = () => {
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Container
-        maxWidth="lg"
+      <div
         style={{
-          textAlign: "center",
-          alignItems: "center",
-          alignContent: "center",
+          backgroundColor: "#ffffff",
         }}
       >
-        <h3>ToDoCon</h3>
-        <TodoCalendar />
-        <ToDoList />
-        <ToDoWriting />
-      </Container>
+        <CssBaseline />
+        <Container
+          maxWidth="lg"
+          style={{
+            color: "#000000",
+            textAlign: "center",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
+          <h3></h3>
+          <TodoCalendar />
+          <ToDoList />
+          <ToDoWriting />
+        </Container>
+      </div>
     </React.Fragment>
   );
 };

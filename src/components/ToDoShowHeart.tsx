@@ -1,14 +1,12 @@
-import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Rating from "@mui/material/Rating";
-import { AnyArray } from "immer/dist/internal";
-import { starType } from "./starType";
+import { starType } from "./writing/starType";
 import { Box } from "@mui/system";
 
-const ToDoStar = () => {
+export const ToDoShowHeart = () => {
   const [heart, setHeart] = useState<number | null>(2);
   const [hover, setHover] = React.useState(-1);
   // const heartOnClick = (event: any, newValue: any) => {
@@ -18,28 +16,21 @@ const ToDoStar = () => {
   return (
     <div>
       <StyledRating
-        name="customized-color"
+        name="read-only"
         defaultValue={2}
-        getLabelText={(heart: number) =>
-          `${heart} Heart${heart !== 1 ? "s" : ""}`
-        }
         value={heart}
         precision={0.5}
         icon={<FavoriteIcon fontSize="inherit" />}
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-        onChange={(event, newValue) => {
-          setHeart(newValue);
-        }}
+        readOnly
       />
-      {heart !== null && (
+      {/* {heart !== null && (
         <Box sx={{ ml: 2 }}>{starType[hover !== -1 ? hover : heart]}</Box>
-      )}
+      )} */}
       <h3>{heart}</h3>
     </div>
   );
 };
-
-export default ToDoStar;
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {

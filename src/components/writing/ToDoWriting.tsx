@@ -7,13 +7,17 @@ import ToDoStar from "./ToDoStar";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { db } from "../../firebase";
 import { collection, getDoc, getDocs } from "firebase/firestore";
+import { Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
+  textAlign: "center",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 700,
   height: 800,
   bgcolor: "background.paper",
   border: "2px solid #000",
@@ -21,27 +25,27 @@ const style = {
   p: 4,
 };
 
+const textAreaStyle = {
+  position: "flex",
+};
+
 export default function ToDoWriting() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = React.useState("");
+  // get DB
+  React.useEffect(() => {}, []);
   const handleChange = (event: any) => {
     setValue(event.target.value);
   };
   const onBtnClick = () => {
     setValue("");
   };
-  React.useEffect(() => {
-    async function fetchWritingData() {
-      const query = await getDocs(collection(db, "bucket"));
-      console.log(query);
-    }
-  }, []);
-
-  console.log(value);
+  const dDay = useSelector((state: RootState) => state.counter.value);
+  const date = new Date(dDay);
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
@@ -50,21 +54,34 @@ export default function ToDoWriting() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography>{date.toString()}</Typography>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             나의 하루
           </Typography>
+          <Typography variant="caption" display="block" gutterBottom>
+            오늘 하루는 어떠셨나요?
+          </Typography>
           <ToDoStar />
-          <TextareaAutosize
-            aria-label="minimum height"
-            minRows={3}
-            placeholder="Minimum 3 rows"
-            style={{ width: 400, height: 600 }}
-            value={value}
-            onChange={handleChange}
-          />
-          <Button onClick={onBtnClick}>저장</Button>
+          <Grid
+            container
+            direction="column"
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={3}
+              placeholder="오늘의 일기를 적어주세요."
+              style={{ width: 500, height: 500, marginBottom: 30, padding: 50 }}
+              value={value}
+              onChange={handleChange}
+            />
+            <Button variant="contained" onClick={onBtnClick}>
+              저장
+            </Button>
+          </Grid>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

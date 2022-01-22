@@ -11,9 +11,23 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import Lottie from "lottie-web";
+import * as catAnimation from "../assets/lottie/14592-loader-cat.json";
+import { useLottie } from "lottie-react";
+import { Icon } from "@mui/material";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
+const LottieAni = () => {
+  const options = {
+    animationData: catAnimation,
+    loop: true,
+    autoplay: true,
+  };
+  const { View } = useLottie(options);
+  return <Button style={{ width: 150 }}>{View}</Button>;
+};
 
 const MyAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,18 +49,11 @@ const MyAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "#ffffff" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            LOGO
-          </Typography>
-
+          <LottieAni />
+          {/* <div ref={lottieContainer}></div> */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -138,3 +145,22 @@ const MyAppBar = () => {
   );
 };
 export default MyAppBar;
+
+// const animatioLoopOption = {
+//   loop: true,
+//   animationData: catAnimation,
+//   rendererSettings: {
+//     preserveAspectRatio: "xMidYMid slice",
+//   },
+// };
+
+// const useCallback = (callback: any, values: any) => {
+//   const self = React.useRef({
+//     values: values,
+//     handler: (...args: any) => {
+//       return callback(...args, self.current.values);
+//     },
+//   });
+//   self.current.values = values;
+//   return self.current.handler;
+// };

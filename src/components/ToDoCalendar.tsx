@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "../assets/styles/calendarcss.css";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementByAmount } from "../app/services/counterSlice";
 import { RootState } from "../app/store";
+import { Typography } from "@mui/material";
 
 const TodoCalendar = () => {
   const [date, setDate] = useState(new Date());
@@ -12,17 +13,26 @@ const TodoCalendar = () => {
 
   const changeDate = (amount: any) => {
     dispatch(incrementByAmount(amount.getTime()));
-    setDate(date);
+    setDate(amount);
   };
   return (
-    <div>
+    <div
+      className="background-calendar"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Typography variant="h6" component="h2">
+        Calendar
+      </Typography>
       <Calendar
         onClickDay={changeDate}
         value={date}
         className="react-calendar"
       />
-      {date.getTime()}
-      <h3>hi</h3>
       <h3>{dDay}</h3>
     </div>
   );
