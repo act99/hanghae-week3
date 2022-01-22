@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import ToDoStar from "./ToDoStar";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { db } from "../../firebase";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDoc, getDocs } from "firebase/firestore";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -30,20 +30,34 @@ const textAreaStyle = {
 };
 
 export default function ToDoWriting() {
+  const dDay = useSelector((state: RootState) => state.counter.value);
+  const date = new Date(dDay);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [value, setValue] = React.useState("");
+  // Diary
+  const [diary, setDiary] = React.useState("");
+  const [heartNum, setHeartNum] = React.useState(3);
+  const diaryCollectionRef = collection(db, "diary");
   // get DB
+  // Diary DB func
+  const createDiary = async () => {
+    await addDoc(diaryCollectionRef, {
+      diary: diary,
+      heart: heartNum,
+      dday: dDay,
+    });
+  };
   React.useEffect(() => {}, []);
   const handleChange = (event: any) => {
-    setValue(event.target.value);
+    setDiary(event.target.value);
+    setHeartNum(event.target.value);
+    createDiary();
   };
+
   const onBtnClick = () => {
-    setValue("");
+    setDiary("");
   };
-  const dDay = useSelector((state: RootState) => state.counter.value);
-  const date = new Date(dDay);
   return (
     <>
       <Button onClick={handleOpen}>Open modal</Button>
@@ -73,7 +87,7 @@ export default function ToDoWriting() {
               minRows={3}
               placeholder="오늘의 일기를 적어주세요."
               style={{ width: 500, height: 500, marginBottom: 30, padding: 50 }}
-              value={value}
+              value={diary}
               onChange={handleChange}
             />
             <Button variant="contained" onClick={onBtnClick}>

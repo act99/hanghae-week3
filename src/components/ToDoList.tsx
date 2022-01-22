@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 const ToDoList = () => {
   const [diaries, setDiaries] = useState<any>([]);
   const dDay = useSelector((state: RootState) => state.counter.value);
-  const diaryData = [];
   const diaryCollectionRef = collection(db, "diary");
   // async function fetchWritingData() {
   //   const query = await getDocs(collection(db, "diary"));
