@@ -6,10 +6,11 @@ import Modal from "@mui/material/Modal";
 import ToDoStar from "./ToDoStar";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { db } from "../../firebase";
-import { addDoc, collection, getDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { Grid } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { diaryReducer } from "../../app/services/diarySlice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,39 +26,34 @@ const style = {
   p: 4,
 };
 
-const textAreaStyle = {
-  position: "flex",
-};
-
 export default function ToDoWriting() {
-  const dDay = useSelector((state: RootState) => state.counter.value);
-  const date = new Date(dDay);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // Diary
-  const [diary, setDiary] = React.useState("");
-  const [heartNum, setHeartNum] = React.useState(3);
+  const dDay = useSelector((state: RootState) => state.counter.value);
+  const diary = useSelector((state: RootState) => state.diaryReducer.diary);
+  const heart = useSelector((state: RootState) => state.heartReducer.heart);
+  const dispatch = useDispatch();
   const diaryCollectionRef = collection(db, "diary");
-  // get DB
-  // Diary DB func
+  const date = new Date(dDay);
+  const changeDiary = (event: any) => {
+    dispatch(diaryReducer(event.target.value));
+  };
+  // const reloading = () => window.location.reload();
   const createDiary = async () => {
     await addDoc(diaryCollectionRef, {
       diary: diary,
-      heart: heartNum,
+      heart: heart,
       dday: dDay,
     });
   };
   React.useEffect(() => {}, []);
-  const handleChange = (event: any) => {
-    setDiary(event.target.value);
-    setHeartNum(event.target.value);
+  const onBtnClick = () => {
     createDiary();
+    // handleClose();
+    // reloading();
   };
 
-  const onBtnClick = () => {
-    setDiary("");
-  };
   return (
     <>
       <Button onClick={handleOpen}>Open modal</Button>
@@ -88,7 +84,7 @@ export default function ToDoWriting() {
               placeholder="오늘의 일기를 적어주세요."
               style={{ width: 500, height: 500, marginBottom: 30, padding: 50 }}
               value={diary}
-              onChange={handleChange}
+              onChange={changeDiary}
             />
             <Button variant="contained" onClick={onBtnClick}>
               저장

@@ -7,9 +7,14 @@ import Rating from "@mui/material/Rating";
 import { AnyArray } from "immer/dist/internal";
 import { starType } from "./starType";
 import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { heartReducer } from "../../app/services/heartSlice";
 
 const ToDoStar = () => {
-  const [heart, setHeart] = useState<number | null>(2);
+  const heart = useSelector((state: RootState) => state.heartReducer.heart);
+  const dispatch = useDispatch();
+  // const [heart, setHeart] = useState<number | null>(2);
   const [hover, setHover] = React.useState(-1);
   // const heartOnClick = (event: any, newValue: any) => {
   //   setHeart(newValue);
@@ -28,7 +33,7 @@ const ToDoStar = () => {
         icon={<FavoriteIcon fontSize="inherit" />}
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
         onChange={(event, newValue) => {
-          setHeart(newValue);
+          dispatch(heartReducer(newValue));
         }}
       />
       {heart !== null && (
