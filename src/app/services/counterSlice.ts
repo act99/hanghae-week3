@@ -1,10 +1,20 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-const dDay = new Date();
+import { createReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { db } from "../../firebase";
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 export interface CounterState {
   value: number;
 }
 
+const dDay = new Date();
 const initialState: CounterState = {
   value: dDay.getTime(),
 };

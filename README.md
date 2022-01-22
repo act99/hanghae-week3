@@ -13,7 +13,7 @@
 - 일기 : o
 - 별점 : o
 - 앱바 : o
-- firebase 연동 : x
+- firebase 연동 : o
 - Routing : x
 - 회원가입 : x
 - 메뉴별 페이지 : x

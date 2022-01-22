@@ -6,7 +6,11 @@ import Rating from "@mui/material/Rating";
 import { starType } from "./writing/starType";
 import { Box } from "@mui/system";
 
-export const ToDoShowHeart = () => {
+interface StarType {
+  heartNumber: number;
+}
+
+export const ToDoShowHeart: React.FC<StarType> = ({ heartNumber }) => {
   const [heart, setHeart] = useState<number | null>(2);
   const [hover, setHover] = React.useState(-1);
   // const heartOnClick = (event: any, newValue: any) => {
@@ -17,8 +21,8 @@ export const ToDoShowHeart = () => {
     <div>
       <StyledRating
         name="read-only"
-        defaultValue={2}
-        value={heart}
+        defaultValue={heartNumber}
+        value={heartNumber}
         precision={0.5}
         icon={<FavoriteIcon fontSize="inherit" />}
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
