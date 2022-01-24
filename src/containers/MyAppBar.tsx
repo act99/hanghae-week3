@@ -11,10 +11,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import Lottie from "lottie-web";
 import * as catAnimation from "../assets/lottie/14592-loader-cat.json";
 import { useLottie } from "lottie-react";
-import { Icon } from "@mui/material";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];

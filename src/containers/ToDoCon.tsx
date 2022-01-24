@@ -4,8 +4,6 @@ import ToDoList from "../components/ToDoList";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import ToDoWriting from "../components/writing/ToDoWriting";
-import { ToDoSchedule } from "../components/calendar/ToDoSchedule";
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",

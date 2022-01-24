@@ -1,10 +1,8 @@
-import { Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Rating from "@mui/material/Rating";
-import { AnyArray } from "immer/dist/internal";
 import { starType } from "./starType";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";

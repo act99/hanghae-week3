@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import ToDoStar from "./ToDoStar";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { db } from "../../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -34,24 +34,21 @@ export default function ToDoWriting() {
   const diary = useSelector((state: RootState) => state.diaryReducer.diary);
   const heart = useSelector((state: RootState) => state.heartReducer.heart);
   const dispatch = useDispatch();
-  const diaryCollectionRef = collection(db, "diary");
   const date = new Date(dDay);
   const changeDiary = (event: any) => {
     dispatch(diaryReducer(event.target.value));
   };
-  // const reloading = () => window.location.reload();
+
   const createDiary = async () => {
-    await addDoc(diaryCollectionRef, {
+    await setDoc(doc(db, "diary", dDay.toString()), {
       diary: diary,
       heart: heart,
       dday: dDay,
     });
   };
-  React.useEffect(() => {}, []);
+
   const onBtnClick = () => {
     createDiary();
-    // handleClose();
-    // reloading();
   };
 
   return (
