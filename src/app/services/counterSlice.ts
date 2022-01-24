@@ -1,14 +1,4 @@
-import { createReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { db } from "../../firebase";
-import {
-  collection,
-  doc,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface CounterState {
   value: number;

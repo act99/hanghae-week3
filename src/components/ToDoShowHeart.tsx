@@ -29,7 +29,6 @@ export const ToDoShowHeart: React.FC<StarType> = ({ heartNumber }) => {
       {/* {heart !== null && (
         <Box sx={{ ml: 2 }}>{starType[hover !== -1 ? hover : heart]}</Box>
       )} */}
-      <h3>{heart}</h3>
     </div>
   );
 };

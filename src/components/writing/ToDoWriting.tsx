@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import ToDoStar from "./ToDoStar";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
@@ -30,11 +30,24 @@ export default function ToDoWriting() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [existDiary, setExistDiary] = React.useState(true);
   const dDay = useSelector((state: RootState) => state.counter.value);
   const diary = useSelector((state: RootState) => state.diaryReducer.diary);
   const heart = useSelector((state: RootState) => state.heartReducer.heart);
   const dispatch = useDispatch();
   const date = new Date(dDay);
+
+  const fetchDiary = async (dDay: any) => {
+    const data = await getDoc(doc(db, "diary", dDay.toString()));
+    if (data.exists()) {
+      console.log("data 있다.", data.data());
+      setExistDiary(true);
+    } else {
+      console.log("데이터 없다.");
+      setExistDiary(false);
+    }
+  };
+
   const changeDiary = (event: any) => {
     dispatch(diaryReducer(event.target.value));
   };
@@ -48,8 +61,16 @@ export default function ToDoWriting() {
   };
 
   const onBtnClick = () => {
-    createDiary();
+    if (existDiary === true) {
+      alert("적은 일기가 있습니다.");
+    } else {
+      createDiary();
+    }
   };
+
+  React.useEffect(() => {
+    fetchDiary(dDay);
+  }, [dDay]);
 
   return (
     <>
